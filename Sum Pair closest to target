@@ -1,0 +1,36 @@
+--------------------JAVA CODE------------------------
+
+class Solution {
+    public List<Integer> sumClosest(int[] arr, int target) {
+        // code here
+        
+        Arrays.sort(arr);
+        int i = 0;
+        int j = arr.length-1;
+        int diff = Integer.MAX_VALUE;
+        int first = -1;
+        int second = -1;
+        
+        List<Integer> ans = new ArrayList<>();
+        while(i < j){
+            int sum = arr[i] + arr[j];
+            if((diff > Math.abs(sum - target)) || ((diff == Math.abs(sum-target)) && arr[j] - arr[i] > second-first)){
+                first = arr[i];
+                second = arr[j];
+                diff = Math.abs(sum - target);
+            }
+            if(sum <= target){
+                i++;
+            }
+            else{
+                j--;
+            }
+        }
+        if(first == -1 && second == -1 ){
+            return ans;
+        }
+        ans.add(first);
+        ans.add(second);
+        return ans;
+    }
+}
