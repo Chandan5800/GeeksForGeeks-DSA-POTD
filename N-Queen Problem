@@ -1,0 +1,41 @@
+---------------JAVA CODE-----------------
+
+class Solution {
+    public ArrayList<ArrayList<Integer>> nQueen(int n) {
+        // code here
+        
+        ArrayList<ArrayList<Integer>> results = new ArrayList<>();
+        int[] board = new int[n];
+        solveNQueen(0, n, board, results);
+        return results;
+    }
+    
+    private void solveNQueen(int col, int n, int[] board, ArrayList<ArrayList<Integer>> results) {
+        if (col == n) {
+            ArrayList<Integer> result = new ArrayList<>();
+            for (int i = 0; i < n; i++) {
+                result.add(board[i] + 1); 
+            }
+            results.add(result);
+            return;
+        }
+        
+        for (int row = 0; row < n; row++) {
+            if (isSafe(row, col, board, n)) {
+                board[col] = row;
+                solveNQueen(col + 1, n, board, results);
+            }
+        }
+    }
+    
+    private boolean isSafe(int row, int col, int[] board, int n) {
+        for (int prevCol = 0; prevCol < col; prevCol++) {
+            int prevRow = board[prevCol];
+            if (prevRow == row || 
+                Math.abs(prevRow - row) == Math.abs(prevCol - col)) { 
+                return false;
+            }
+        }
+        return true;
+    }
+}
